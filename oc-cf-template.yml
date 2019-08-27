@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: "2019-08-22"
+AWSTemplateFormatVersion: "2010-09-09"
 Description: Deploys opencravat software and full complement of annotators on separate volume, takes in 2 files and processes based on parameters in JSON file
 Parameters:
   InstanceType:
