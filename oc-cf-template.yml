@@ -133,6 +133,7 @@ Resources:
           wget http://${OCS3Bucket}.amazonaws.com/${OCYMLFile}
           cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
           # Put /tmp/${OCInputFile}.sqlite to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.sqlite
+          # Put /tmp/${OCInputFile}.log to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.log
 Outputs:
   PublicIp:
     Value: !GetAtt OCEC2Instance.PublicIp
