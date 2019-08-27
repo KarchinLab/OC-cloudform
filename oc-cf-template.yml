@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Deploys opencravat software and full complement of annotators on separate volume, takes in 2 files and processes based on parameters in JSON file
+Description: Deploys opencravat software and full complement of annotators on separate volume, takes in 2 files and processes based on parameters in YML file
 Parameters:
   InstanceType:
     Type: String
@@ -22,10 +22,10 @@ Parameters:
   OCInputFile:
     Type: String
     Description: Your data file
-  OCJSONFile:
+  OCYMLFile:
     Type: String
     Description: >-
-      Your JSON File to control the OC Run. Be sure this has been uploaded to the S3 bucket
+      Your YML File to control the OC Run. Be sure this has been uploaded to the S3 bucket
   OCS3Bucket:
     Type: String
     Description: Name of the S3 bucket for your source files and output file.
@@ -130,8 +130,9 @@ Resources:
           # Download the source files to the local machine
           cd /tmp
           wget http://${OCS3Bucket}.amazonaws.com/${OCInputFile}
-          wget http://${OCS3Bucket}.amazonaws.com/${OCJSONFile}
-          # Run the oc command using /tmp/${OCInputFile} and /tmp/${OCJSONFile}
+          wget http://${OCS3Bucket}.amazonaws.com/${OCYMLFile}
+          cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
+          # Put /tmp/${OCInputFile}.sqlite to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.sqlite
 Outputs:
   PublicIp:
     Value: !GetAtt OCEC2Instance.PublicIp
