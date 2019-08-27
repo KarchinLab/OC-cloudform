@@ -131,7 +131,7 @@ Resources:
           cd /tmp
           wget s3://${OCS3Bucket}/${OCInputFile}
           wget s3://${OCS3Bucket}/${OCJSONFile}
-          # Run the oc using ${}
+          # Run the oc command using /tmp/${OCInputFile} and /tmp/${OCJSONFile}
 Outputs:
   PublicIp:
     Value: !GetAtt OCEC2Instance.PublicIp
