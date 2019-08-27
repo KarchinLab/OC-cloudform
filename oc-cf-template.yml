@@ -80,12 +80,8 @@ Resources:
           ToPort: 22
           IpProtocol: tcp
         - CidrIp: 0.0.0.0/0
-          FromPort: 8787
-          ToPort: 8787
-          IpProtocol: tcp
-        - CidrIp: 0.0.0.0/0
-          FromPort: 3838
-          ToPort: 3838
+          FromPort: 8060
+          ToPort: 8060
           IpProtocol: tcp
       GroupDescription: SSH access for TS and cravat-view ports
       VpcId: !Ref VpcId
@@ -131,7 +127,10 @@ Resources:
           else:
             mount /dev/sdf1 /mnt/ssd
           fi
-
+          # Download the source files to the local machine
+          cd /tmp
+          wget s3://${OCS3Bucket}/${OCInputFile}
+          wget s3://${OCS3Bucket}/${OCJSONFile}
           # Run the oc using ${}
 Outputs:
   PublicIp:
