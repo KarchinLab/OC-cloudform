@@ -58,7 +58,7 @@ Resources:
             Resource:
               - !Sub 'arn:aws:s3:::${OCS3Bucket}/*'
       Roles:
-        - !Ref DataS3ReadRole
+        - !Ref OCS3ReadRole
   OCS3ReadRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -114,7 +114,7 @@ Resources:
           DeviceIndex: 0
       Tags:
         - Key: Name
-          Value: OC-runner
+          Value: OpenCravat-Machine
       UserData:
         'Fn::Base64': !Sub >
           #!/bin/bash
