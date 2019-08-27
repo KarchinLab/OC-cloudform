@@ -43,7 +43,7 @@ Resources:
     Properties:
       PolicyName: OCS3ReadPolicy
       PolicyDocument:
-        Version: "2019-8-27"
+        Version: "2012-10-17"
         Statement:
           - Effect: Allow
             Action:
@@ -63,7 +63,7 @@ Resources:
     Type: 'AWS::IAM::Role'
     Properties:
       AssumeRolePolicyDocument:
-        Version: "2019-08-27"
+        Version: "2012-10-17"
         Statement:
           - Effect: Allow
             Principal:
