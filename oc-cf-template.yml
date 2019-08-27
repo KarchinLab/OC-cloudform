@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: 2019-08-22
+AWSTemplateFormatVersion: "2019-08-22"
 Description: Deploys opencravat software and full complement of annotators on separate volume, takes in 2 files and processes based on parameters in JSON file
 Parameters:
   InstanceType:
@@ -43,7 +43,7 @@ Resources:
     Properties:
       PolicyName: OCS3ReadPolicy
       PolicyDocument:
-        Version: 2019-8-27
+        Version: "2019-8-27"
         Statement:
           - Effect: Allow
             Action:
@@ -63,7 +63,7 @@ Resources:
     Type: 'AWS::IAM::Role'
     Properties:
       AssumeRolePolicyDocument:
-        Version: 2019-08-27
+        Version: "2019-08-27"
         Statement:
           - Effect: Allow
             Principal:
