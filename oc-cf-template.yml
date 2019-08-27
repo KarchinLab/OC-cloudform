@@ -1,0 +1,139 @@
+AWSTemplateFormatVersion: 2019-08-22
+Description: Deploys opencravat software and full complement of annotators on separate volume, takes in 2 files and processes based on parameters in JSON file
+Parameters:
+  InstanceType:
+    Type: String
+    Description: Instance type for OpenCravat run. Default is m5.2xlarge.
+    AllowedValues:
+      - m5.large
+      - m5.xlarge
+      - m5.2xlarge
+      - m5.4xlarge
+    ConstraintDescription: 'Valid instance type in m5 family which will appropriately handle workload'
+    Default: m5.2xlarge
+  ImageId:
+    Type: 'AWS::EC2::Image::Id'
+    Description: >-
+      Pre-built image id, centos with extra disks
+    Default: ami-4fffc834
+  VpcId:
+    Type: 'AWS::EC2::VPC::Id'
+    Description: VPC this server will reside in
+  OCInputFile:
+    Type: String
+    Description: Your data file
+  OCJSONFile:
+    Type: String
+    Description: >-
+      Your JSON File to control the OC Run. Be sure this has been uploaded to the S3 bucket
+  OCS3Bucket:
+    Type: String
+    Description: Name of the S3 bucket for your source files and output file.
+  KeyPair:
+    Type: 'AWS::EC2::KeyPair::KeyName'
+    Description: Amazon EC2 Key Pair
+  SubnetId:
+    Type: 'AWS::EC2::Subnet::Id'
+    Description: >-
+      Subnet ID your instance will launch in. Should be Internet accessible for
+      the purposes of this demo.
+Resources:
+  OCS3ReadPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: OCS3ReadPolicy
+      PolicyDocument:
+        Version: 2019-8-27
+        Statement:
+          - Effect: Allow
+            Action:
+              - 's3:ListBucket'
+            Resource:
+              - !Sub 'arn:aws:s3:::${OCS3Bucket}'
+          - Effect: Allow
+            Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:DeleteObject'
+            Resource:
+              - !Sub 'arn:aws:s3:::${OCS3Bucket}/*'
+      Roles:
+        - !Ref DataS3ReadRole
+  OCS3ReadRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2019-08-27
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+  OCEC2SecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 22
+          ToPort: 22
+          IpProtocol: tcp
+        - CidrIp: 0.0.0.0/0
+          FromPort: 8787
+          ToPort: 8787
+          IpProtocol: tcp
+        - CidrIp: 0.0.0.0/0
+          FromPort: 3838
+          ToPort: 3838
+          IpProtocol: tcp
+      GroupDescription: SSH access for TS and cravat-view ports
+      VpcId: !Ref VpcId
+  OCEIP:
+    Type: 'AWS::EC2::EIP'
+    Properties:
+      Domain: !Ref VpcId
+  OCEIPAssociation:
+    Type: 'AWS::EC2::EIPAssociation'
+    Properties:
+      AllocationId: !GetAtt OCStatsEIP.AllocationId
+      NetworkInterfaceId: !Ref OCNetworkInterface
+  OCNetworkInterface:
+    Type: 'AWS::EC2::NetworkInterface'
+    Properties:
+      SubnetId: !Ref SubnetId
+      Description: Interface for OC Machine
+      GroupSet:
+        - !Ref OCEC2SecurityGroup
+      SourceDestCheck: true
+  OCEC2Instance:
+    Type: 'AWS::EC2::Instance'
+    DependsOn: OCEIP
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyPair
+      NetworkInterfaces:
+        - NetworkInterfaceId: !Ref OCNetworkInterface
+          DeviceIndex: 0
+      Tags:
+        - Key: Name
+          Value: OC-runner
+      UserData:
+        'Fn::Base64': !Sub >
+          #!/bin/bash
+
+          # Mount the extra disk with annotators
+          if lsblk -f | grep -wq nvme1n1p1; then
+            mount /dev/nvme1n1p1 /mnt/ssd
+          elif lsblk -f | grep -wq xvdf1; then
+            mount /dev/xvdf1 /mnt/ssd
+          else:
+            mount /dev/sdf1 /mnt/ssd
+          fi
+
+          # Run the oc using ${}
+Outputs:
+  PublicIp:
+    Value: !GetAtt OCEC2Instance.PublicIp
+
