@@ -92,7 +92,7 @@ Resources:
   OCEIPAssociation:
     Type: 'AWS::EC2::EIPAssociation'
     Properties:
-      AllocationId: !GetAtt OCStatsEIP.AllocationId
+      AllocationId: !GetAtt OCEIP.AllocationId
       NetworkInterfaceId: !Ref OCNetworkInterface
   OCNetworkInterface:
     Type: 'AWS::EC2::NetworkInterface'
