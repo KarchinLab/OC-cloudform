@@ -129,8 +129,8 @@ Resources:
           fi
           # Download the source files to the local machine
           cd /tmp
-          wget s3://${OCS3Bucket}/${OCInputFile}
-          wget s3://${OCS3Bucket}/${OCJSONFile}
+          wget http://${OCS3Bucket}.amazonaws.com/${OCInputFile}
+          wget http://${OCS3Bucket}.amazonaws.com/${OCJSONFile}
           # Run the oc command using /tmp/${OCInputFile} and /tmp/${OCJSONFile}
 Outputs:
   PublicIp:
