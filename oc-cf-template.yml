@@ -134,6 +134,10 @@ Resources:
           cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
           # Put /tmp/${OCInputFile}.sqlite to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.sqlite
           # Put /tmp/${OCInputFile}.log to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.log
+          s3cmd put ${OCInputFile}.sqlite s3://${OCS3Bucket}/
+          s3cmd put ${OCInputFile}.log s3://${OCS3Bucket}/
+
+
 Outputs:
   PublicIp:
     Value: !GetAtt OCEC2Instance.PublicIp
