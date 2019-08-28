@@ -38,6 +38,12 @@ Parameters:
       Subnet ID your instance will launch in. Should be Internet accessible for
       the purposes of this demo.
 Resources:
+  OCS3ReadProfile:
+    Type: 'AWS::IAM::InstanceProfile'
+    Properties:
+      Path: "/"
+      Roles:
+        - OCS3ReadRole
   OCS3ReadPolicy:
     Type: 'AWS::IAM::Policy'
     Properties:
@@ -120,7 +126,7 @@ Resources:
       Tags:
         - Key: Name
           Value: OpenCravat-Machine
-      IAMRole: OCS3ReadRole
+      IamInstanceProfile: OCS3ReadProfile
       UserData:
         'Fn::Base64': !Sub |
             #!/bin/bash
