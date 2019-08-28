@@ -140,7 +140,7 @@ Resources:
             wget http://${OCS3Bucket}.amazonaws.com/${OCYMLFile}
             # Run the cravat command based on parameters in YAML file
             cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
-            # Upload the sqlite output and log file to s3
+            # Upload the sqlite output and log file to s3 using s3cmd
             s3cmd put ${OCInputFile}.sqlite s3://${OCS3Bucket}/
             s3cmd put ${OCInputFile}.log s3://${OCS3Bucket}/
 
