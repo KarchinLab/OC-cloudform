@@ -39,6 +39,7 @@ Parameters:
       the purposes of this demo.
 Resources:
   OCS3ReadProfile:
+    DependsOn: OCS3ReadRole
     Type: 'AWS::IAM::InstanceProfile'
     Properties:
       Path: "/"
