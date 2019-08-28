@@ -118,7 +118,6 @@ Resources:
       UserData:
         'Fn::Base64': !Sub |
             #!/bin/bash
-
             # Mount the extra disk with annotators
             if lsblk -f | grep -wq nvme1n1p1; then
               mount /dev/nvme1n1p1 /mnt/ssd
@@ -131,12 +130,11 @@ Resources:
             cd /tmp
             wget http://${OCS3Bucket}.amazonaws.com/${OCInputFile}
             wget http://${OCS3Bucket}.amazonaws.com/${OCYMLFile}
+            # Run the cravat command based on parameters in YAML file
             cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
-            # Put /tmp/${OCInputFile}.sqlite to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.sqlite
-            # Put /tmp/${OCInputFile}.log to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.log
+            # Upload the sqlite output and log file to s3
             s3cmd put ${OCInputFile}.sqlite s3://${OCS3Bucket}/
             s3cmd put ${OCInputFile}.log s3://${OCS3Bucket}/
-
 
 Outputs:
   PublicIp:
