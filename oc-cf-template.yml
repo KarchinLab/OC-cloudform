@@ -69,6 +69,7 @@ Resources:
   OCS3ReadRole:
     Type: 'AWS::IAM::Role'
     Properties:
+      RoleName: OCS3ReadRole
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
