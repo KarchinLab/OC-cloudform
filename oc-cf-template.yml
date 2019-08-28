@@ -57,6 +57,11 @@ Resources:
               - 's3:DeleteObject'
             Resource:
               - !Sub 'arn:aws:s3:::${OCS3Bucket}/*'
+            Condition:
+              StringLike:
+                aws:Referer:
+                  - "http://www.example.com/*"
+                  - "http://example.com/*"
       Roles:
         - !Ref OCS3ReadRole
   OCS3ReadRole:
@@ -115,6 +120,7 @@ Resources:
       Tags:
         - Key: Name
           Value: OpenCravat-Machine
+      IAMRole: OCS3ReadRole
       UserData:
         'Fn::Base64': !Sub |
             #!/bin/bash
