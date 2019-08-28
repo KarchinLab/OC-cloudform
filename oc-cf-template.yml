@@ -116,29 +116,28 @@ Resources:
         - Key: Name
           Value: OpenCravat-Machine
       UserData:
-        'Fn::Base64': !Sub >
-          #!/bin/bash
+        'Fn::Base64': !Sub |
+            #!/bin/bash
 
-          # Mount the extra disk with annotators
-          if lsblk -f | grep -wq nvme1n1p1; then
-            mount /dev/nvme1n1p1 /mnt/ssd
-          elif lsblk -f | grep -wq xvdf1; then
-            mount /dev/xvdf1 /mnt/ssd
-          else:
-            mount /dev/sdf1 /mnt/ssd
-          fi
-          # Download the source files to the local machine
-          cd /tmp
-          wget http://${OCS3Bucket}.amazonaws.com/${OCInputFile}
-          wget http://${OCS3Bucket}.amazonaws.com/${OCYMLFile}
-          cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
-          # Put /tmp/${OCInputFile}.sqlite to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.sqlite
-          # Put /tmp/${OCInputFile}.log to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.log
-          s3cmd put ${OCInputFile}.sqlite s3://${OCS3Bucket}/
-          s3cmd put ${OCInputFile}.log s3://${OCS3Bucket}/
+            # Mount the extra disk with annotators
+            if lsblk -f | grep -wq nvme1n1p1; then
+              mount /dev/nvme1n1p1 /mnt/ssd
+            elif lsblk -f | grep -wq xvdf1; then
+              mount /dev/xvdf1 /mnt/ssd
+            else:
+              mount /dev/sdf1 /mnt/ssd
+            fi
+            # Download the source files to the local machine
+            cd /tmp
+            wget http://${OCS3Bucket}.amazonaws.com/${OCInputFile}
+            wget http://${OCS3Bucket}.amazonaws.com/${OCYMLFile}
+            cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
+            # Put /tmp/${OCInputFile}.sqlite to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.sqlite
+            # Put /tmp/${OCInputFile}.log to http://${OCS3Bucket}.amazonaws.com/${OCInputFile}.log
+            s3cmd put ${OCInputFile}.sqlite s3://${OCS3Bucket}/
+            s3cmd put ${OCInputFile}.log s3://${OCS3Bucket}/
 
 
 Outputs:
   PublicIp:
     Value: !GetAtt OCEC2Instance.PublicIp
-
