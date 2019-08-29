@@ -124,8 +124,8 @@ Resources:
         - Key: Name
           Value: OpenCravat-Machine
       IamInstanceProfile:
-        Name: 'OCS3ReadProfile'
-        #Arn: !GetAtt OCS3ReadProfile.Arn
+        #Name: 'OCS3ReadProfile'
+        Arn: !GetAtt OCS3ReadProfile.Arn
       UserData:
         'Fn::Base64': !Sub |
             #!/bin/bash
