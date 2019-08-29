@@ -13,4 +13,4 @@ To Do:
 - Stress test the disk mounting path
 - Verify Metadata visuals not needed for CF pipeline
 - Add multi-input processing path
-- make the ami multi-regional and autoselecting
+- make the ami multi-regional and auto-selecting
