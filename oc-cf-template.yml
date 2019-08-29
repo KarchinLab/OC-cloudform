@@ -123,7 +123,8 @@ Resources:
       Tags:
         - Key: Name
           Value: OpenCravat-Machine
-      IamInstanceProfile: OCS3ReadRole
+      IamInstanceProfile:
+        - Name: 'OCS3ReadProfile'
       UserData:
         'Fn::Base64': !Sub |
             #!/bin/bash
