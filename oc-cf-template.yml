@@ -112,7 +112,7 @@ Resources:
       SourceDestCheck: true
   OCEC2Instance:
     Type: 'AWS::EC2::Instance'
-    DependsOn: OCS3ReadRole
+    DependsOn: OCS3ReadProfile
     Properties:
       ImageId: !Ref ImageId
       InstanceType: !Ref InstanceType
