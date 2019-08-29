@@ -15,7 +15,7 @@ Parameters:
     Type: 'AWS::EC2::Image::Id'
     Description: >-
       Pre-built image id, centos with extra disks
-    Default: ami-0da36bb5c895a3278
+    Default: ami-0d2430a7718fc8790
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
     Description: VPC this server will reside in
@@ -137,14 +137,14 @@ Resources:
             fi
             # Download the source files to the local machine
             cd /tmp
-            wget http://${OCS3Bucket}.amazonaws.com/${OCInputFile}
-            wget http://${OCS3Bucket}.amazonaws.com/${OCYMLFile}
+            aws s3 cp s3://${OCS3Bucket}/${OCInputFile} .
+            aws s3 cp s3://${OCS3Bucket}/${OCYMLFile} .
             # Run the cravat command based on parameters in YAML file
             cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
             # Upload the sqlite output and log file to s3 using s3cmd
-            s3cmd put ${OCInputFile}.sqlite s3://${OCS3Bucket}/
-            s3cmd put ${OCInputFile}.log s3://${OCS3Bucket}/
-
+            aws s3 cp ${OCInputFile}.sqlite s3://${OCS3Bucket}/
+            aws s3 cp ${OCInputFile}.log s3://${OCS3Bucket}/
+            aws s3 cp ${OCInputFile}.err s3://${OCS3Bucket}/
 Outputs:
   PublicIp:
     Value: !GetAtt OCEC2Instance.PublicIp
