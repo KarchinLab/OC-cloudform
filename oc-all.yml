@@ -1,2 +1,4 @@
 run:
+  excludes:
+    - linsight      
   endat: postaggregator

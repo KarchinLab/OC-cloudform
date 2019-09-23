@@ -140,15 +140,16 @@ Resources:
             aws s3 cp s3://${OCS3Bucket}/${OCInputFile} .
             aws s3 cp s3://${OCS3Bucket}/${OCYMLFile} .
             # Run the cravat command based on parameters in YAML file
-            cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
+            cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile} 2>&1 | tee ${OCInputFile}-commandout.txt
             # Upload the sqlite output and log file to s3 using s3cmd
-            stamp=`date +"%m-%d-%y-%H-%M-%S"`
+            stamp=`date +%s`
             aws s3api put-object --bucket ${OCS3Bucket} --key ${OCInputFile}-$stamp/
             aws s3 cp ${OCInputFile}.sqlite s3://${OCS3Bucket}/${OCInputFile}-$stamp/
             aws s3 cp ${OCInputFile}.log s3://${OCS3Bucket}/${OCInputFile}-$stamp/
             aws s3 cp ${OCInputFile}.err s3://${OCS3Bucket}/${OCInputFile}-$stamp/
-            # Wait 5 minutes just to make sure the uploads complete
-            sleep 300
+            aws s3 cp ${OCInputFile}-commandout.txt s3://${OCS3Bucket}/${OCInputFile}-$stamp/
+            # Wait 1 minute just to make sure the uploads complete
+            sleep 60
             # Shut the instance down
             /sbin/shutdown -h now
 Outputs:
