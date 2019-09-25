@@ -10,13 +10,13 @@ What you'll need to get started:
 
 To get started, click this link: https://amzn.to/2n4Z8zr
 
-![First Screen]https://github.com/hynesgra/OC-cloudform/blob/master/images/First-Screen.png
+![First Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/First-Screen.png)
 
-![Second Screen]https://github.com/hynesgra/OC-cloudform/blob/master/images/SecondScreen.png
+![Second Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/SecondScreen.png)
 
-![Third Screen]https://github.com/hynesgra/OC-cloudform/blob/master/images/ThirdScreen.png
+![Third Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/ThirdScreen.png)
 
-![Fourth Screen]https://github.com/hynesgra/OC-cloudform/blob/master/images/FourthScreen.png
+![Fourth Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/FourthScreen.png)
 
 To Do:
 - Watch configured compute instance(s) for shutdown with AWS lambda and destroy stack when triggered
