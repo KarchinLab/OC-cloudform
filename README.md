@@ -12,7 +12,7 @@ To get started, click this link: [CloudFormation Quick Start](https://console.aw
 
 At this first screen, you'll only need to confirm with the "Next" button. The template selection and file locations have been processed with the link.
 
-![First Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/First-Screen.png)
+![First Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/FirstScreen.png)
 
 The second screen is where you will provide all necessary values for the pipeline run. The ImageID and machine type values will already be populated from default, but the rest will require completion. The InputFile and OCYMLFile values should be the names of files within your S3 bucket. 
 
@@ -27,7 +27,11 @@ Your SubnetId and VpcId will not match these values.
 
 ![Second Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/SecondScreen.png)
 
+On the third screen you won't need to modify any values and should just click "Next"
+
 ![Third Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/ThirdScreen.png)
+
+The fourth screen submits the OpenCravat runner. You'll only need to confirm the objects and permissions being granted in the CloudFormation process.
 
 ![Fourth Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/FourthScreen.png)
 
