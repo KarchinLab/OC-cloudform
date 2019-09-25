@@ -31,12 +31,7 @@ On the third screen you won't need to modify any values and should just click "N
 
 ![Third Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/ThirdScreen.png)
 
-The fourth screen submits the OpenCravat runner. You'll only need to confirm the objects and permissions being granted in the CloudFormation process.
+The fourth screen submits the OpenCravat runner. You'll only need to confirm the objects and permissions being granted in the CloudFormation process. Finally just click the "Create Stack" buttong to get your pipeline working.
 
 ![Fourth Screen](https://github.com/hynesgra/OC-cloudform/blob/master/images/FourthScreen.png)
 
-To Do:
-- Watch configured compute instance(s) for shutdown with AWS lambda and destroy stack when triggered
-- Verify Metadata visuals not needed for CF pipeline
-- Add multi-input processing path from single submission point
-- Deploy the AMI to a multiple regions and make the template self selecting
