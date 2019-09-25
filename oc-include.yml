@@ -1,5 +1,20 @@
 run:
   annotators:
     - clinvar
-    - grasp
+    - cosmic 
+    - dbsnp 
+    - denovo 
+    - esp6500 
+    - gnomad 
+    - gtex 
+    - repeat 
+    - thousandgenomes 
+    - uk10k_cohort 
+    - vest 
+    - vista_enhancer 
+    - biogrid 
+    - gnomad_gene 
+    - ncbigene 
+    - pubmed 
+    - uniprot
   endat: postaggregator
