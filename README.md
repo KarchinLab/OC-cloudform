@@ -8,7 +8,7 @@ What you'll need to get started:
 - Within that bucket should be an input file and a YAML file for OpenCravat configuration parameters
 - Important note : this pipeline will incur cost on your amazon account and you are responsible for ensuring all components are deleted
 
-To get started, click this link: ![CloudFormation Quick Start](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template?stackName=OpenCravatRunner-v2&templateURL=http://oc-auto-wflow-testing.s3.amazonaws.com/oc-cf-template.yml)
+To get started, click this link: [CloudFormation Quick Start](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template?stackName=OpenCravatRunner-v2&templateURL=http://oc-auto-wflow-testing.s3.amazonaws.com/oc-cf-template.yml)
 
 At this first screen, you'll only need to confirm with the "Nex" button. The template selection and file locations have been processed with the link.
 
