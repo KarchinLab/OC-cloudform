@@ -28,7 +28,7 @@ Parameters:
       Your YML File to control the OC Run. Be sure this has been uploaded to the S3 bucket
   OCS3Bucket:
     Type: String
-    Description: Name of the S3 bucket for your source files and output file.
+    Description: Name of the S3 bucket for your source files and output file. If your files are nested in a "directory", append the full path after the bucket name.
   KeyPair:
     Type: 'AWS::EC2::KeyPair::KeyName'
     Description: Amazon EC2 Key Pair
@@ -139,14 +139,18 @@ Resources:
             cd /tmp
             aws s3 cp s3://${OCS3Bucket}/${OCInputFile} .
             aws s3 cp s3://${OCS3Bucket}/${OCYMLFile} .
+            #Establish some time stamping
+            stamp=`date +%s`
             # Run the cravat command based on parameters in YAML file
-            cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile}
+            cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile} 2>&1 | tee OCrun-$stamp-commandout.txt
             # Upload the sqlite output and log file to s3 using s3cmd
-            aws s3 cp ${OCInputFile}.sqlite s3://${OCS3Bucket}/
-            aws s3 cp ${OCInputFile}.log s3://${OCS3Bucket}/
-            aws s3 cp ${OCInputFile}.err s3://${OCS3Bucket}/
-            # Wait 5 minutes just to make sure the uploads complete
-            sleep 300
+            aws s3api put-object --bucket ${OCS3Bucket} --key ${OCInputFile}-$stamp/
+            aws s3 cp ${OCInputFile}.sqlite s3://${OCS3Bucket}/${OCInputFile}-$stamp/
+            aws s3 cp ${OCInputFile}.log s3://${OCS3Bucket}/${OCInputFile}-$stamp/
+            aws s3 cp ${OCInputFile}.err s3://${OCS3Bucket}/${OCInputFile}-$stamp/
+            aws s3 cp OCrun-$stamp-commandout.txt s3://${OCS3Bucket}/${OCInputFile}-$stamp/
+            # Wait 1 minute just to make sure the uploads complete
+            sleep 60
             # Shut the instance down
             /sbin/shutdown -h now
 Outputs:
