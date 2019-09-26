@@ -48,7 +48,18 @@ Resources:
   OCS3ReadPolicy:
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: !Ref AWS::StackId
+      PolicyName: !Join
+        - "-"
+        - - "name"
+          - !Select
+            - 0
+            - !Split
+              - "-"
+              - !Select
+                - 2
+                - !Split
+                  - "/"
+                  - !Ref "AWS::StackId"
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -69,7 +80,18 @@ Resources:
   OCS3ReadRole:
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !Ref AWS::StackId
+      RoleName: !Join
+        - "-"
+        - - "name"
+          - !Select
+            - 0
+            - !Split
+              - "-"
+              - !Select
+                - 2
+                - !Split
+                  - "/"
+                  - !Ref "AWS::StackId"
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
