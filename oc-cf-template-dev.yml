@@ -48,7 +48,7 @@ Resources:
   OCS3ReadPolicy:
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: !Select [1, !Split[-, !Select [1, !Split [/, !Ref AWS::StackId ]]]]
+      PolicyName: !Ref AWS::StackId
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -69,7 +69,7 @@ Resources:
   OCS3ReadRole:
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !Select [1, !Split[-, !Select [1, !Split [/, !Ref AWS::StackId ]]]]
+      RoleName: !Ref AWS::StackId
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
