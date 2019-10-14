@@ -44,7 +44,8 @@ Resources:
     Properties:
       Path: "/"
       Roles:
-        - OCS3ReadRole
+        #- OCS3ReadRole
+        - !Ref OCS3ReadRole
   OCS3ReadPolicy:
     Type: 'AWS::IAM::Policy'
     Properties:
@@ -115,15 +116,15 @@ Resources:
           IpProtocol: tcp
       GroupDescription: SSH access for TS and cravat-view ports
       VpcId: !Ref VpcId
-  OCEIP:
-    Type: 'AWS::EC2::EIP'
-    Properties:
-      Domain: !Ref VpcId
-  OCEIPAssociation:
-    Type: 'AWS::EC2::EIPAssociation'
-    Properties:
-      AllocationId: !GetAtt OCEIP.AllocationId
-      NetworkInterfaceId: !Ref OCNetworkInterface
+  #OCEIP:
+  #  Type: 'AWS::EC2::EIP'
+  #  Properties:
+  #    Domain: !Ref VpcId
+  #OCEIPAssociation:
+  #  Type: 'AWS::EC2::EIPAssociation'
+  #  Properties:
+  #    AllocationId: !GetAtt OCEIP.AllocationId
+  #    NetworkInterfaceId: !Ref OCNetworkInterface
   OCNetworkInterface:
     Type: 'AWS::EC2::NetworkInterface'
     Properties:
@@ -150,13 +151,13 @@ Resources:
         'Fn::Base64': !Sub |
             #!/bin/bash
             # Mount the extra disk with annotators
-            if lsblk -f | grep -wq nvme1n1p1; then
-              mount /dev/nvme1n1p1 /mnt/ssd
-            elif lsblk -f | grep -wq xvdf1; then
-              mount /dev/xvdf1 /mnt/ssd
-            else:
-              mount /dev/sdf1 /mnt/ssd
-            fi
+            #if lsblk -f | grep -wq nvme1n1p1; then
+            #  mount /dev/nvme1n1p1 /mnt/ssd
+            #elif lsblk -f | grep -wq xvdf1; then
+            #  mount /dev/xvdf1 /mnt/ssd
+            #else:
+            #  mount /dev/sdf1 /mnt/ssd
+            #fi
             # Download the source files to the local machine
             cd /tmp
             aws s3 cp s3://${OCS3Bucket}/${OCInputFile} .
