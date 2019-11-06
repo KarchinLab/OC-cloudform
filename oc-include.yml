@@ -17,4 +17,8 @@ run:
     - ncbigene 
     - pubmed 
     - uniprot
+    - haploreg_afr
+    - haploreg_amr
+    - haploreg_asn
+    - haploreg_eur
   endat: postaggregator
