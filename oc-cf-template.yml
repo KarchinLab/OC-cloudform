@@ -15,7 +15,8 @@ Parameters:
     Type: 'AWS::EC2::Image::Id'
     Description: >-
       Pre-built image id, centos with extra disks
-    Default: ami-0d0d81bd434795b20
+    #Default: ami-0d0d81bd434795b20
+    Default: ami-0221ca3c40322bd2e
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
     Description: VPC this server will reside in
