@@ -21,4 +21,15 @@ run:
     - haploreg_amr
     - haploreg_asn
     - haploreg_eur
+    - exac_gene
+    - fathmm
+    - gerp
+    - go
+    - grasp
+    - intact
+    - interpro
+    - ncbi_gene
+    - pharmgkb
+    - revel
+  liftover: hg38
   endat: postaggregator
