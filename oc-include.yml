@@ -28,7 +28,7 @@ run:
     - grasp
     - intact
     - interpro
-    - ncbi_gene
+    - ncbigene
     - pharmgkb
     - revel
   liftover: hg38
