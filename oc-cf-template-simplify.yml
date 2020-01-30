@@ -51,21 +51,21 @@ Metadata:
         Label:
           default: "Input File Configuration"
         Parameters:
-          -OCYMLFile
-          -OCInputFile
+          - OCYMLFile
+          - OCInputFile
       -
         Label:
           default: "Run Size Configuration"
         Parameters:
-          -InstanceType
+          - InstanceType
       -
         Label:
           default: "Amazon EC2 Configuration Specifics"
         Parameters:
-          -ImageId
-          -KeyPair
-          -VpcId
-          -SubnetId
+          - ImageId
+          - KeyPair
+          - VpcId
+          - SubnetId
     ParameterLabels:
       VpcId:
         default: "Which VPC should this be deployed to?"
