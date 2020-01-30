@@ -42,21 +42,25 @@ Parameters:
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
-      Label:
-        default: "Bucket Configuration"
+      -
+        Label:
+          default: "Bucket Configuration"
         Parameters:
           - OCS3Bucket
-      Label:
-        default: "Input File Configuration"
+      -
+        Label:
+          default: "Input File Configuration"
         Parameters:
           -OCYMLFile
           -OCInputFile
-      Label:
-        default: "Run Size Configuration"
+      -
+        Label:
+          default: "Run Size Configuration"
         Parameters:
           -InstanceType
-      Label:
-        default: "Amazon EC2 Configuration Specifics"
+      -
+        Label:
+          default: "Amazon EC2 Configuration Specifics"
         Parameters:
           -ImageId
           -KeyPair
