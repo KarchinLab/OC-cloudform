@@ -17,7 +17,6 @@ Parameters:
     Description: >-
       Pre-built image id, centos with extra disks
     Default: ami-032104653c3315aca
-    NoEcho: true
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
     Description: Any should work, we just can't pick this for you!
