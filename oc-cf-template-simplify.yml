@@ -3,7 +3,7 @@ Description: Deploys opencravat software and full complement of annotators on se
 Parameters:
   InstanceType:
     Type: String
-    Description: Instance type for OpenCravat run. Default is m5.2xlarge.
+    Description: 'The default, m5.2xlarge, should be fine unless you have millions of RSIDs'.
     AllowedValues:
       - m5.large
       - m5.xlarge
@@ -19,10 +19,10 @@ Parameters:
     Default: ami-032104653c3315aca
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
-    Description: Any should work, we just can't pick this for you.
+    Description: Any should work, we just can't pick this for you!
   OCS3Bucket:
     Type: String
-    Description: Name of the S3 bucket for your source files and output file. If your files are nested in a "directory", append the full path after the bucket name.
+    Description: 'Name of your s3 bucket, ex "haplocravat2". If your files are nested in a "directory", append the full path after the bucket name. No need to add any protocol such as s3://'
   OCInputFile:
     Type: String
     Description: Your data file
@@ -82,7 +82,7 @@ Metadata:
       KeyPair:
         default: "Which of your Amazon keys do you want to use?"
       SubnetId:
-        default: "Select a subnet for the computation"
+        default: "Select one of your subnets for the computation"
 
 Resources:
   OCS3ReadProfile:
