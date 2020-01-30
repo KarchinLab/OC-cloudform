@@ -16,11 +16,13 @@ Parameters:
     Type: 'AWS::EC2::Image::Id'
     Description: >-
       Pre-built image id, centos with extra disks
-    #Default: ami-0d0d81bd434795b20
     Default: ami-032104653c3315aca
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
-    Description: VPC this server will reside in
+    Description: Any should work, we just can't pick this for you.
+  OCS3Bucket:
+    Type: String
+    Description: Name of the S3 bucket for your source files and output file. If your files are nested in a "directory", append the full path after the bucket name.
   OCInputFile:
     Type: String
     Description: Your data file
@@ -28,17 +30,42 @@ Parameters:
     Type: String
     Description: >-
       Your YML File to control the OC Run. Be sure this has been uploaded to the S3 bucket
-  OCS3Bucket:
-    Type: String
-    Description: Name of the S3 bucket for your source files and output file. If your files are nested in a "directory", append the full path after the bucket name.
   KeyPair:
     Type: 'AWS::EC2::KeyPair::KeyName'
     Description: Amazon EC2 Key Pair
+    Default: 0
   SubnetId:
     Type: 'AWS::EC2::Subnet::Id'
     Description: >-
       Subnet ID your instance will launch in. Should be Internet accessible for
       the purposes of this demo.
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      Label:
+        default: "Bucket Configuration"
+        Parameters:
+          - OCS3Bucket
+      Label:
+        default: "Input File Configuration"
+        Parameters:
+          -OCYMLFile
+          -OCInputFile
+      Label:
+        default: "Run Size Configuration"
+        Parameters:
+          -InstanceType
+      Label:
+        default: "Amazon EC2 Configuration Specifics"
+        Parameters:
+          -ImageId
+          -KeyPair
+          -VpcId
+          -SubnetId
+    ParameterLabels:
+      VpcId:
+        default: "Which VPC should this be deployed to?"
+
 Resources:
   OCS3ReadProfile:
     DependsOn: OCS3ReadRole
