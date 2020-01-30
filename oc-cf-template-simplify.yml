@@ -17,12 +17,13 @@ Parameters:
     Description: >-
       Pre-built image id, centos with extra disks
     Default: ami-032104653c3315aca
+    NoEcho: true
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
     Description: Any should work, we just can't pick this for you!
   OCS3Bucket:
     Type: String
-    Description: 'Name of your s3 bucket, ex. "haplocravat2". If your files are nested in a "directory" ex. "haplocravat2/files/", append the full path after the bucket name. No need to add any protocol such as s3://'
+    Description: 'Name of your s3 bucket, ex. "haplocravat2". If your files are nested inside the bucket ex. "haplocravat2/files/", append the full path after the bucket name. No need to add any protocol such as s3://'
   OCInputFile:
     Type: String
     Description: Your data file
