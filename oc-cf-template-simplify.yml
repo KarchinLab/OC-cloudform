@@ -25,7 +25,7 @@ Parameters:
     Description: 'Name of your s3 bucket, ex. "haplocravat2". If your files are nested inside the bucket ex. "haplocravat2/files/", append the full path after the bucket name. No need to add any protocol such as s3://'
   OCInputFile:
     Type: String
-    Description: Your data file
+    Description: "List of rsIDs or VCF file"
   OCYMLFile:
     Type: String
     Description: >-
@@ -74,7 +74,7 @@ Metadata:
       OCYMLFile:
         default: "Your configuration file"
       OCInputFile:
-        default: "Your list of RSIDs"
+        default: "Your input file"
       InstanceType:
         default: "What size instance do you need?"
       ImageId:
