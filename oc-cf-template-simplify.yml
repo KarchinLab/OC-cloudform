@@ -69,6 +69,20 @@ Metadata:
     ParameterLabels:
       VpcId:
         default: "Which VPC should this be deployed to?"
+      OCS3Bucket:
+        default: "Your S3 Bucket"
+      OCYMLFile:
+        default: "Your configuration file"
+      OCInputFile:
+        default: "Your list of RSIDs"
+      InstanceType:
+        default: "What size instance do you need?"
+      ImageId:
+        default: "Select the correct AMI"
+      KeyPair:
+        default: "Which of your Amazon keys do you want to use?"
+      SubnetId:
+        default: "Select a subnet for the computation"
 
 Resources:
   OCS3ReadProfile:
