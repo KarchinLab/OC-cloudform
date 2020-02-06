@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import boto3
-import time
 import random
 import string
 import argparse
