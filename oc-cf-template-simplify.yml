@@ -51,8 +51,8 @@ Metadata:
         Label:
           default: "Input File Configuration"
         Parameters:
-          - OCYMLFile
           - OCInputFile
+          - OCYMLFile
       -
         Label:
           default: "Run Size Configuration"
