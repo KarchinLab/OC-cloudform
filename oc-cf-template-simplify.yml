@@ -15,7 +15,7 @@ Parameters:
   ImageId:
     Type: 'AWS::EC2::Image::Id'
     Description: >-
-      Pre-built image id, centos with extra disks
+      OpenCRAVAT AMI with all modules installed.
     Default: ami-032104653c3315aca
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
