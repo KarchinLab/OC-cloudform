@@ -3,7 +3,7 @@ Description: Deploys opencravat software and full complement of annotators on se
 Parameters:
   InstanceType:
     Type: String
-    Description: Instance type for OpenCravat run. Default is m5.2xlarge.
+    Description: 'The default, m5.2xlarge, should be fine unless you have millions of RSIDs'
     AllowedValues:
       - m5.large
       - m5.xlarge
@@ -15,30 +15,75 @@ Parameters:
   ImageId:
     Type: 'AWS::EC2::Image::Id'
     Description: >-
-      Pre-built image id, centos with extra disks
-    #Default: ami-0d0d81bd434795b20
+      OpenCRAVAT AMI with all modules installed.
     Default: ami-032104653c3315aca
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
-    Description: VPC this server will reside in
+    Description: Any should work, we just can't pick this for you!
+  OCS3Bucket:
+    Type: String
+    Description: 'Name of your s3 bucket, ex. "haplocravat2". If your files are nested inside the bucket ex. "haplocravat2/files/", append the full path after the bucket name. No need to add any protocol such as s3://'
   OCInputFile:
     Type: String
-    Description: Your data file
+    Description: "List of rsIDs or VCF file"
   OCYMLFile:
     Type: String
     Description: >-
       Your YML File to control the OC Run. Be sure this has been uploaded to the S3 bucket
-  OCS3Bucket:
-    Type: String
-    Description: Name of the S3 bucket for your source files and output file. If your files are nested in a "directory", append the full path after the bucket name.
   KeyPair:
     Type: 'AWS::EC2::KeyPair::KeyName'
     Description: Amazon EC2 Key Pair
+    Default: 0
   SubnetId:
     Type: 'AWS::EC2::Subnet::Id'
     Description: >-
       Subnet ID your instance will launch in. Should be Internet accessible for
       the purposes of this demo.
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      -
+        Label:
+          default: "Bucket Configuration"
+        Parameters:
+          - OCS3Bucket
+      -
+        Label:
+          default: "Input File Configuration"
+        Parameters:
+          - OCInputFile
+          - OCYMLFile
+      -
+        Label:
+          default: "Run Size Configuration"
+        Parameters:
+          - InstanceType
+      -
+        Label:
+          default: "Amazon EC2 Configuration Specifics"
+        Parameters:
+          - ImageId
+          - KeyPair
+          - VpcId
+          - SubnetId
+    ParameterLabels:
+      VpcId:
+        default: "Which VPC should this be deployed to?"
+      OCS3Bucket:
+        default: "Your S3 Bucket"
+      OCYMLFile:
+        default: "Your configuration file"
+      OCInputFile:
+        default: "Your input file"
+      InstanceType:
+        default: "What size instance do you need?"
+      ImageId:
+        default: "Select the correct AMI"
+      KeyPair:
+        default: "Which of your Amazon keys do you want to use?"
+      SubnetId:
+        default: "Select one of your subnets for the computation"
+
 Resources:
   OCS3ReadProfile:
     DependsOn: OCS3ReadRole
