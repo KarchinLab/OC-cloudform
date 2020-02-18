@@ -17,7 +17,7 @@ Parameters:
     Description: >-
       OpenCRAVAT AMI with all modules installed.
     #Default: ami-032104653c3315aca
-    Default: ami-0f6ac80fa1ad67d6e
+    Default: ami-067119ae9c93dca42
 
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
