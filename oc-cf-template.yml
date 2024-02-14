@@ -195,8 +195,8 @@ Resources:
             aws s3 cp s3://${OCS3Bucket}/${OCYMLFile} .
             #Establish some time stamping
             stamp=`date +%s`
-            # Run the cravat command based on parameters in YAML file
-            cravat /tmp/${OCInputFile} -c /tmp/${OCYMLFile} 2>&1 | tee OCrun-$stamp-commandout.txt
+            # Run the oc command based on parameters in YAML file
+            oc run /tmp/${OCInputFile} -c /tmp/${OCYMLFile} 2>&1 | tee OCrun-$stamp-commandout.txt
             # Upload the sqlite output and log file to s3 using s3cmd
             aws s3api put-object --bucket ${OCS3Bucket} --key ${OCInputFile}-$stamp/
             aws s3 cp ${OCInputFile}.sqlite s3://${OCS3Bucket}/${OCInputFile}-$stamp/
